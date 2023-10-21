@@ -270,6 +270,8 @@ def main():
                 return 0
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beams.add(Beam(bird))
+            
+            # 追加機能１：高速化
             if event.type == pg.KEYDOWN and event.key == pg.K_LSHIFT:
                 bird.speed = 20
             if event.type == pg.KEYUP and event.key == pg.K_LSHIFT:
