@@ -240,8 +240,10 @@ class Shield(pg.sprite.Sprite):
         super().__init__()
         self.vx, self.vy = bird.get_direction()
         angle = math.degrees(math.atan2(-self.vy, self.vx))
-        self.image = pg.transform.rotozoom(pg.Surface((20, bird.rect.height*2)), angle, 1.0)
-        pg.draw.rect(self.image, (0, 0, 0), pg.Rect(0, 0, 20, bird.rect.height*2))
+        self.image = pg.Surface((20, bird.rect.height*2))
+        pg.draw.rect(self.image, (255, 0, 0), pg.Rect(0, 0, 20, bird.rect.height*2))
+        self.image = pg.transform.rotate(self.image, angle)
+        #self.image = pg.transform.rotozoom(self.image, angle, 1.0)
         self.rect = self.image.get_rect()
         self.rect.centerx = bird.rect.centerx+bird.rect.width*self.vx
         self.rect.centery = bird.rect.centery+bird.rect.height*self.vy
@@ -265,7 +267,7 @@ class Score:
     def __init__(self):
         self.font = pg.font.Font(None, 50)
         self.color = (0, 0, 255)
-        self.score = 0
+        self.score = 1000
         self.image = self.font.render(f"Score: {self.score}", 0, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = 100, HEIGHT-50
@@ -281,6 +283,7 @@ class Score:
 def main():
     pg.display.set_caption("真！こうかとん無双")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
+    #screen = Screen(1600, 900, "hoge")
     bg_img = pg.image.load("ex04/fig/pg_bg.jpg")
     score = Score()
 
@@ -290,7 +293,7 @@ def main():
     exps = pg.sprite.Group()
     emys = pg.sprite.Group()
     shields = pg.sprite.Group()
-
+    print(screen)
     tmr = 0
     clock = pg.time.Clock()
     while True:
